@@ -7,5 +7,87 @@
     <link rel="stylesheet" href="css/style.css" />
     <script type="module" defer src="js/app.js"></script>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <h1>Open Source Explorer</h1>
+      <p>Search a GitHub organization to explore its repositories.</p>
+    </header>
+
+    <main>
+      <!-- Search form -->
+      <section id="search-section">
+        <form id="search-form">
+          <label for="org-input">GitHub organization</label>
+          <input
+            type="text"
+            id="org-input"
+            name="org-input"
+            placeholder="e.g. google"
+            autocomplete="off"
+          />
+          <button type="submit">Search</button>
+        </form>
+      </section>
+
+      <!-- Loading state -->
+      <section id="loading" hidden>
+        <p>Loading...</p>
+      </section>
+
+      <!-- Error state -->
+      <section id="error" hidden>
+        <p id="error-message">Something went wrong.</p>
+      </section>
+
+      <!-- Org info -->
+      <section id="org-info">
+        <h2 id="org-name">Organization Name</h2>
+        <p id="org-description">Organization description goes here.</p>
+        <a id="org-url" href="#" target="_blank" rel="noopener noreferrer"
+          >GitHub Profile</a
+        >
+        <a id="org-website" href="#" target="_blank" rel="noopener noreferrer"
+          >Website</a
+        >
+      </section>
+
+      <!-- Repo list -->
+      <section id="repo-section">
+        <h2>Repositories</h2>
+        <ul id="repo-list">
+          <li class="repo-card">
+            <h3 class="repo-name">Repo Name</h3>
+            <p class="repo-description">Repo description goes here.</p>
+            <span class="repo-language">Language</span>
+            <span class="repo-stars">Stars 0</span>
+            <span class="repo-forks">Forks 0</span>
+            <a
+              class="repo-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              >View on GitHub</a
+            >
+          </li>
+
+          <li class="repo-card">
+            <h3 class="repo-name">Repo Name</h3>
+            <p class="repo-description">Repo description goes here.</p>
+            <span class="repo-language">Language</span>
+            <span class="repo-stars">Stars 0</span>
+            <span class="repo-forks">Forks 0</span>
+            <a
+              class="repo-link"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              >View on GitHub</a
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
 </html>
