@@ -23,12 +23,12 @@ export function showErrorMessage(message) {
   const errorMessage = document.getElementById("error-message");
   errorMessage.textContent = message;
   const parent = document.getElementById("error");
-  parent.hidden = false;
+  parent.classList.remove("hidden");
 }
 
 export function hideErrorMessage() {
   const parent = document.getElementById("error");
-  parent.hidden = true;
+  parent.classList.add("hidden");
 }
 
 function createCard(repo) {
