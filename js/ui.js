@@ -4,10 +4,57 @@ export function renderOrgInfo(orgData) {
   const orgProfile = document.getElementById("org-url");
   const orgWebsite = document.getElementById("org-website");
 
-  orgName.textContent = orgData.name;
-  orgDescription.textContent = orgData.description
-    ? orgData.description
-    : "No Description Provided";
+  orgName.textContent = orgData.name || orgData.login;
+  orgDescription.textContent = orgData.description || "No Description Provided";
   orgProfile.href = orgData.html_url;
   orgWebsite.href = orgData.blog;
+}
+
+export function renderOrgsRepo(repoList) {
+  const unList = document.getElementById("repo-list");
+  unList.textContent = "";
+  for (let i = 0; i < repoList.length; i++) {
+    const repoCard = document.createElement("li");
+    repoCard.className = "repo-card";
+
+    const repoName = document.createElement("h3");
+    repoName.className = "repo-name";
+    repoName.textContent = repoList[i].name;
+
+    const repoDescription = document.createElement("p");
+    repoDescription.className = "repo-description";
+    repoDescription.textContent =
+      repoList[i].description || "No description provided.";
+
+    const repoLanguage = document.createElement("span");
+    repoLanguage.className = "repo-language";
+    repoLanguage.textContent = repoList[i].language
+      ? `Language: ${repoList[i].language}`
+      : "Language: Not specified";
+
+    const repoStars = document.createElement("span");
+    repoStars.className = "repo-stars";
+    repoStars.textContent = `Stars: ${repoList[i].stargazers_count}`;
+
+    const repoForks = document.createElement("span");
+    repoForks.className = "repo-forks";
+    repoForks.textContent = `Forks: ${repoList[i].forks_count}`;
+
+    const repoLink = document.createElement("a");
+    repoLink.className = "repo-link";
+    repoLink.href = repoList[i].html_url;
+    repoLink.target = "_blank";
+    repoLink.rel = "noopener noreferrer";
+    repoLink.textContent = "View on Github";
+
+    repoCard.append(
+      repoName,
+      repoDescription,
+      repoLanguage,
+      repoStars,
+      repoForks,
+      repoLink,
+    );
+    unList.appendChild(repoCard);
+  }
 }
