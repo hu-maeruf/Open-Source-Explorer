@@ -6,7 +6,9 @@ export async function fetchOrg(orgName) {
 }
 
 export async function fetchRepos(orgName) {
-  const response = await fetch(`https://api.github.com/orgs/${orgName}/repos`);
+  const response = await fetch(
+    `https://api.github.com/orgs/${orgName}/repos?per_page=30`,
+  );
   checkResponse(response);
   const data = await response.json();
   return data;
