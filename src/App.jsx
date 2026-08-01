@@ -1,14 +1,16 @@
 import OrgProfile from "./components/OrgProfile";
 import RepositoryCard from "./components/RepositoryCard";
 import SearchBar from "./components/SearchBar";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { fetchOrg, fetchRepos } from "./api";
+import { repoRanking } from "./ranking";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
   const [orgData, setOrgData] = useState(null);
   const [repos, setRepos] = useState([]);
   const [error, setError] = useState({ org: null, repo: null });
+  const rankedRepos = useMemo(() => repoRanking(repos), [repos]);
 
   async function handleSearch(text) {
     setLoading(true);
@@ -64,7 +66,7 @@ export default function App() {
         />
       )}
       {error.repo && <p>{error.repo}</p>}
-      {repos.map((repo) => (
+      {rankedRepos.map((repo) => (
         <RepositoryCard
           key={repo.name}
           name={repo.name}
