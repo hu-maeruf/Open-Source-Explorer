@@ -1,20 +1,26 @@
-import OrgProfile from "./components/OrgProfile";
-import RepositoryCard from "./components/RepositoryCard";
-import SearchBar from "./components/SearchBar";
 import { useState, useMemo } from "react";
 import { fetchOrg, fetchRepos } from "./api";
 import { repoRanking } from "./ranking";
+import OrgProfile from "./components/OrgProfile";
+import RepositoryCard from "./components/RepositoryCard";
+import SearchBar from "./components/SearchBar";
+import LanguageFilter from "./components/LanguageFilter";
 
 export default function App() {
   const [loading, setLoading] = useState(false);
   const [orgData, setOrgData] = useState(null);
   const [repos, setRepos] = useState([]);
   const [error, setError] = useState({ org: null, repo: null });
+  const [selectedLanguage, setSelectedLanguage] = useState("");
   const rankedRepos = useMemo(() => repoRanking(repos), [repos]);
+  const filteredRepos = selectedLanguage
+    ? rankedRepos.filter((r) => r.language === selectedLanguage)
+    : rankedRepos;
 
   async function handleSearch(text) {
     setLoading(true);
     setError({ org: null, repo: null });
+    setSelectedLanguage("");
     try {
       const result = await Promise.allSettled([
         fetchOrg(text),
@@ -51,6 +57,10 @@ export default function App() {
     }
   }
 
+  function handleLanguage(language) {
+    setSelectedLanguage(language);
+  }
+
   return (
     <>
       <SearchBar onSearch={handleSearch} />
@@ -66,7 +76,8 @@ export default function App() {
         />
       )}
       {error.repo && <p>{error.repo}</p>}
-      {rankedRepos.map((repo) => (
+      <LanguageFilter repos={rankedRepos} onLanguageChange={handleLanguage} />
+      {filteredRepos.map((repo) => (
         <RepositoryCard
           key={repo.name}
           name={repo.name}
