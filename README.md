@@ -6,6 +6,14 @@ A companion tool for contributors preparing for Google Summer of Code (GSoC). Se
 
 The official GSoC site already lists participating organizations and project ideas. Once a contributor knows which organization they're interested in, the next step — figuring out _which of that org's repositories are actually worth exploring_ — usually means manually clicking through dozens of repos on GitHub, checking star counts and last-updated dates by hand. This tool automates that step: give it an org name, and it surfaces repositories that are both popular _and_ actively maintained, so a popular-but-abandoned project doesn't drown out a smaller one that's still getting real commits.
 
+## Live Demo
+
+🔗 https://hu-maeruf.github.io/Open-Source-Explorer/
+
+## Screenshot
+
+![Open Source Explorer](./src/assets/page_2.png)
+
 ## Features
 
 - Search any GitHub organization by its exact login (e.g. `python`, `kubernetes`)
@@ -18,14 +26,6 @@ The official GSoC site already lists participating organizations and project ide
 - Each repository card shows name, description, primary language, star count, last-updated date, and a link to the repo on GitHub
 - A visible "searches remaining" indicator, reflecting GitHub's unauthenticated rate limit in terms the user actually cares about (searches, not raw API requests)
 - Specific, plain-language error messages for invalid/empty input, nonexistent organizations, rate limiting, and network failures — instead of a silent failure or generic error
-
-## Live Demo
-
-🔗 https://hu-maeruf.github.io/Open-Source-Explorer/
-
-## Screenshot
-
-![Open Source Explorer](./src/assets/page_2.png)
 
 ## What it deliberately doesn't do
 
