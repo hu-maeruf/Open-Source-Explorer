@@ -60,12 +60,57 @@ export default function App() {
   function handleLanguage(language) {
     setSelectedLanguage(language);
   }
+  const heroMode = !orgData;
 
   return (
-    <>
-      <SearchBar onSearch={handleSearch} />
-      {loading && <p>Loading ...</p>}
-      {error.org && <p>{error.org}</p>}
+    <div className="min-h-screen bg-slate-50">
+      <div
+        className={
+          heroMode
+            ? "flex flex-col items-center justify-center min-h-screen px-4 text-center"
+            : "pt-10 px-4"
+        }
+      >
+        {heroMode && (
+          <>
+            <h1 className="text-2xl font-semibold text-slate-900">
+              Open Source Explorer
+            </h1>
+            <p className="mt-5 text-slate-500">
+              Find actively maintained repositories worth contributing to, in
+              any GitHub organization.
+            </p>
+          </>
+        )}
+
+        <div className={heroMode ? "mt-8" : ""}>
+          <SearchBar onSearch={handleSearch} />
+        </div>
+
+        {heroMode && (
+          <div className="mt-8 flex justify-center gap-2 text-sm">
+            {["github", "python", "npm"].map((org) => (
+              <button
+                key={org}
+                onClick={() => handleSearch(org)}
+                className="rounded-full border border-slate-300 px-3 py-1 text-slate-600 hover:border-indigo-400 hover:text-indigo-600 transition-colors"
+              >
+                {org}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {loading && (
+        <p className="mt-6 text-center text-sm text-slate-500">Loading…</p>
+      )}
+      {error.org && (
+        <p className="mt-4 max-w-xl mx-auto text-center text-sm text-red-600">
+          {error.org}
+        </p>
+      )}
+
       {orgData && (
         <OrgProfile
           avatar_url={orgData.avatar_url}
@@ -75,19 +120,30 @@ export default function App() {
           blog={orgData.blog}
         />
       )}
-      {error.repo && <p>{error.repo}</p>}
-      <LanguageFilter repos={rankedRepos} onLanguageChange={handleLanguage} />
-      {filteredRepos.map((repo) => (
-        <RepositoryCard
-          key={repo.name}
-          name={repo.name}
-          description={repo.description}
-          stargazers_count={repo.stargazers_count}
-          updated_at={repo.updated_at}
-          language={repo.language}
-          html_url={repo.html_url}
-        />
-      ))}
-    </>
+
+      {error.repo && (
+        <p className="mt-4 max-w-xl mx-auto text-center text-sm text-red-600">
+          {error.repo}
+        </p>
+      )}
+
+      {rankedRepos.length > 0 && (
+        <LanguageFilter repos={rankedRepos} onLanguageChange={handleLanguage} />
+      )}
+
+      <div className="max-w-xl mx-auto mt-6 space-y-3 px-4">
+        {filteredRepos.map((repo) => (
+          <RepositoryCard
+            key={repo.name}
+            name={repo.name}
+            description={repo.description}
+            stargazers_count={repo.stargazers_count}
+            updated_at={repo.updated_at}
+            language={repo.language}
+            html_url={repo.html_url}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

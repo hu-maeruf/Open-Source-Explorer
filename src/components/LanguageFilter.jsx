@@ -1,15 +1,16 @@
-export default function LanguageFilter(props) {
-  const languagesSet = new Set(props.repos.map((r) => r.language));
+export default function LanguageFilter({ repos, onLanguageChange }) {
+  const languagesSet = new Set(repos.map((r) => r.language));
   const languages = [...languagesSet].filter(Boolean);
   return (
-    <>
-      <label htmlFor="langFilter"></label>
+    <div className="max-w-xl mx-auto mt-6 flex items-center gap-2">
+      <label htmlFor="langFilter" className="text-sm text-slate-600">
+        Language
+      </label>
       <select
-        onChange={(e) => {
-          props.onLanguageChange(e.target.value);
-        }}
+        onChange={(e) => onLanguageChange(e.target.value)}
         name="programmingLanguage"
         id="langFilter"
+        className="rounded-lg border border-slate-300 px-3 py-1.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         <option key="" value="">
           Show All
@@ -20,6 +21,6 @@ export default function LanguageFilter(props) {
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 }
