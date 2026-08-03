@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react";
-import { fetchOrg, fetchRepos } from "./api";
+import { useState, useMemo, useEffect } from "react";
+import { fetchOrg, fetchRepos, fetchRateLimit } from "./api";
 import { repoRanking } from "./ranking";
 import OrgProfile from "./components/OrgProfile";
 import RepositoryCard from "./components/RepositoryCard";
@@ -12,10 +12,19 @@ export default function App() {
   const [repos, setRepos] = useState([]);
   const [error, setError] = useState({ org: null, repo: null });
   const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [rateLimit, setRateLimit] = useState("");
   const rankedRepos = useMemo(() => repoRanking(repos), [repos]);
   const filteredRepos = selectedLanguage
     ? rankedRepos.filter((r) => r.language === selectedLanguage)
     : rankedRepos;
+
+  useEffect(() => {
+    async function loadRateLimit() {
+      const remaining = await fetchRateLimit();
+      setRateLimit(remaining);
+    }
+    loadRateLimit();
+  }, []);
 
   async function handleSearch(text) {
     setLoading(true);
@@ -54,6 +63,8 @@ export default function App() {
       }
     } finally {
       setLoading(false);
+      const remaining = await fetchRateLimit();
+      setRateLimit(remaining);
     }
   }
 
@@ -85,6 +96,12 @@ export default function App() {
 
         <div className={heroMode ? "mt-8" : ""}>
           <SearchBar onSearch={handleSearch} />
+          {rateLimit !== null && (
+            <div className="max-w-40 mx-auto mt-3 rounded-xl border border-slate-200 bg-white p-1 text-center shadow-sm">
+              <p className="text-xl font-bold text-slate-900">{rateLimit}</p>
+              <p className="text-xs text-slate-500">reaquests left</p>
+            </div>
+          )}
         </div>
 
         {heroMode && (

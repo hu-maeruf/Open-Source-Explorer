@@ -28,3 +28,11 @@ function checkResponse(response) {
     throw error;
   }
 }
+
+export async function fetchRateLimit() {
+  const response = await fetch("https://api.github.com/rate_limit");
+  checkResponse(response);
+  const data = await response.json();
+  const remNumber = data.resources.core.remaining;
+  return Math.floor(remNumber / 2);
+}
