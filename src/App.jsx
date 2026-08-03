@@ -122,9 +122,10 @@ export default function App() {
       {loading && (
         <p className="mt-6 text-center text-sm text-slate-500">Loading…</p>
       )}
-      {error.org && (
+
+      {(error.org || error.repo) && (
         <p className="mt-4 max-w-xl mx-auto text-center text-sm text-red-600">
-          {error.org}
+          {error.org || error.repo}
         </p>
       )}
 
@@ -136,12 +137,6 @@ export default function App() {
           html_url={orgData.html_url}
           blog={orgData.blog}
         />
-      )}
-
-      {error.repo && (
-        <p className="mt-4 max-w-xl mx-auto text-center text-sm text-red-600">
-          {error.repo}
-        </p>
       )}
 
       {rankedRepos.length > 0 && (

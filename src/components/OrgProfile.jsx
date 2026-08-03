@@ -6,7 +6,7 @@ export default function OrgProfile({
   blog,
 }) {
   return (
-    <div className="max-w-2xl mx-4 sm:mx-auto mt-8 flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5">
+    <div className="max-w-2xl mx-4 sm:mx-auto mt-3 flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-5">
       <img
         src={avatar_url}
         alt="Avatar image"
