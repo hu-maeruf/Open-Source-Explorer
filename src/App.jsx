@@ -93,7 +93,6 @@ export default function App() {
             </p>
           </>
         )}
-
         <div className={heroMode ? "mt-8" : ""}>
           <SearchBar onSearch={handleSearch} />
           {rateLimit !== null && (
@@ -103,7 +102,6 @@ export default function App() {
             </div>
           )}
         </div>
-
         {heroMode && (
           <div className="mt-8 flex justify-center gap-2 text-sm">
             {["github", "python", "npm"].map((org) => (
@@ -116,17 +114,16 @@ export default function App() {
               </button>
             ))}
           </div>
+        )}{" "}
+        {(error.org || error.repo) && (
+          <p className="mt-4 max-w-xl mx-auto text-center text-sm text-red-600">
+            {error.org || error.repo}
+          </p>
         )}
       </div>
 
       {loading && (
         <p className="mt-6 text-center text-sm text-slate-500">Loading…</p>
-      )}
-
-      {(error.org || error.repo) && (
-        <p className="mt-4 max-w-xl mx-auto text-center text-sm text-red-600">
-          {error.org || error.repo}
-        </p>
       )}
 
       {orgData && (
