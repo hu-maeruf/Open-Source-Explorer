@@ -22,6 +22,8 @@ export default function RepositoryCard({
       </div>
       <a
         href={html_url}
+        target="_blank"
+        rel="noopener noreferrer"
         className="mt-3 inline-block text-sm text-indigo-600 hover:underline"
       >
         View on GitHub

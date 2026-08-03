@@ -3,7 +3,7 @@ export default function LanguageFilter({ repos, onLanguageChange }) {
   const languages = [...languagesSet].filter(Boolean);
   return (
     <div className="max-w-xl mx-auto mt-6 flex items-center gap-2">
-      <label htmlFor="langFilter" className="text-sm text-slate-600">
+      <label htmlFor="langFilter" className="text-sm text-slate-600 mx-4">
         Language
       </label>
       <select

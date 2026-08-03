@@ -131,7 +131,7 @@ export default function App() {
         <LanguageFilter repos={rankedRepos} onLanguageChange={handleLanguage} />
       )}
 
-      <div className="max-w-xl mx-auto mt-6 space-y-3 px-4">
+      <div className="max-w-3xl mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 px-4">
         {filteredRepos.map((repo) => (
           <RepositoryCard
             key={repo.name}
